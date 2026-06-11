@@ -13,6 +13,7 @@
 <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
 
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src="kwitter.js"></script>
 </head>
@@ -32,15 +33,18 @@
 
 		<h4 >Únete a Nano Connect hoy</h4>
 		
-		<div class="form-group">
-		  <label >Crea tu nombre de usuario:</label>
-		 <input type="text" id="user_name" class="form-control" placeholder="Nombre de usuario">
-		</div>
+		<a href="registro.html">
+    <button class="btn btn-primary nano-btn">
+        Registrarse
+    </button>
+</a>
 
-		<button id="login_button" class="btn btn-primary" onclick="addUser()">Iniciar conección</button>
-		<br><br>
-	</div>
-</center>
+<br><br>
 
-</body>
-</html>
+<p>¿Ya tienes una conexión?</p>
+
+<a href="login.html">
+    <button class="btn btn-primary nano-btn">
+        Iniciar sesión
+    </button>
+</a>

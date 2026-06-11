@@ -30,13 +30,13 @@ body
 {
 	background: rgba(255, 255, 255, 0.8);
 	float: none;
-	border-radius: 15px;
+	border-radius: 20px;
 }
 
 .logo
 {
-	width: 250px;
-	margin-top: 30px;
+	width: 350px;
+	margin-top: 40px;
 	border-radius: 80px;
 }
 
@@ -65,7 +65,7 @@ body
 	padding: 10px;
 	width: 80%;
 	background: rgb(255, 255, 255);
-	border-radius: 15px;
+	border-radius: 25px;
 }
 
 .input_div_room_page
@@ -117,4 +117,60 @@ body
 {
 	padding-left: 5px;
 	color: rgb(0, 0, 0);
+}
+
+#mensaje
+{
+	color: #8b5064;
+	font-size: 18px;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+.form-control
+{
+	border-radius: 12px;
+}
+
+.btn-primary
+{
+	border-radius: 12px;
+	font-family: 'League Spartan', sans-serif;
+	font-weight: 700;
+	width: 80%;
+}
+
+.input-group-addon
+{
+	cursor: pointer;
+	background-color: white;
+}
+
+.login_div h1
+{
+	color: #8b5064;
+	font-family: 'League Spartan', sans-serif;
+	font-weight: 700;
+}
+
+.login_div a
+{
+	color: #8b5064;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+body {
+    background-image: linear-gradient(
+        to right top,
+        #8b5064,
+        #f1c8c8,
+        #ffe5fa,
+        #ffd1f6,
+        #f3cef1
+    );
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    overflow-x: hidden;
 }

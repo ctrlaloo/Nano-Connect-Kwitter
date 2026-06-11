@@ -1,4 +1,3 @@
-//Añade los enlaces de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDA4gAFeWcYE2_w3N-7Os8TXzXMyljDak8",
   authDomain: "kwitter-247d6.firebaseapp.com",
@@ -9,58 +8,86 @@ const firebaseConfig = {
   appId: "1:599266540979:web:03ba14e476e0e2f9961fc6"
 };
 
-  firebase.initializeApp(firebaseConfig);
-	user_name = localStorage.getItem("user_name");
-	room_name = localStorage.getItem("room_name");
+firebase.initializeApp(firebaseConfig);
 
-function send()
-{
-  msg = document.getElementById("msg").value;
-  firebase.database().ref(room_name).push({
-    name:user_name,
-    message:msg,
-    like:0
-   });
+var user_name = localStorage.getItem("user_name");
+var room_name = localStorage.getItem("room_name");
 
-  document.getElementById("msg").value = "";
+document.getElementById("room_name").innerHTML = "#" + room_name;
+
+// 💬 ENVIAR MENSAJE
+function send() {
+
+    var msg = document.getElementById("msg").value;
+
+    if (msg === "") return;
+
+    firebase.database().ref(room_name).push({
+        name: user_name,
+        message: msg,
+        like: 0
+    });
+
+    document.getElementById("msg").value = "";
 }
 
-function getData() { firebase.database().ref("/"+room_name).on('value', function(snapshot) { document.getElementById("output").innerHTML = ""; snapshot.forEach(function(childSnapshot) { childKey  = childSnapshot.key; childData = childSnapshot.val(); if(childKey != "purpose") {
-         firebase_message_id = childKey;
-         message_data = childData;
-//Start code
-         console.log(firebase_message_id);
-	       console.log(message_data);
-	       name = message_data['name'];
-	       message = message_data['message'];
-         like = message_data['like'];
-         name_with_tag = "<h4> "+ name +"<img class='user_tick' src='tick.png'></h4>";
-         message_with_tag = "<h4 class='message_h4'>" + message + "</h4>";
-like_button ="<button class='btn btn-warning' id="+firebase_message_id+" value="+like+" onclick='updateLike(this.id)'>";
-         span_with_tag = "<span class='glyphicon glyphicon-thumbs-up'>Like: "+ like +"</span></button><hr>";
+// 📡 LEER MENSAJES
+function getData() {
 
-        row = name_with_tag + message_with_tag +like_button + span_with_tag;       
-        document.getElementById("output").innerHTML += row;
-//End code
-      } });  }); }
+    firebase.database().ref(room_name).on("value", function(snapshot) {
+
+        document.getElementById("output").innerHTML = "";
+
+        snapshot.forEach(function(childSnapshot) {
+
+            var key = childSnapshot.key;
+            var data = childSnapshot.val();
+
+            if (key !== "purpose") {
+
+                var message_id = key;
+                var data_val = data;
+
+                var name = data_val.name;
+                var message = data_val.message;
+                var like = data_val.like;
+
+                var row =
+                "<div style='background:#fff; padding:10px; border-radius:10px; margin:10px 0;'>" +
+                    "<h4>" + name + "</h4>" +
+                    "<p>" + message + "</p>" +
+                    "<button class='btn btn-warning btn-sm' id='" + message_id + "' onclick='updateLike(this.id)' value='" + like + "'>" +
+                        "👍 Like: " + like +
+                    "</button>" +
+                "</div><hr>";
+
+                document.getElementById("output").innerHTML += row;
+            }
+        });
+
+    });
+}
+
 getData();
 
-function updateLike(message_id)
-{
-  console.log("clicked on like button - " + message_id);
-	button_id = message_id;
-	likes = document.getElementById(button_id).value;
-	updated_likes = Number(likes) + 1;
-	console.log(updated_likes);
+// 👍 LIKE
+function updateLike(id) {
 
-	firebase.database().ref(room_name).child(message_id).update({
-		like : updated_likes  
-	 });
+    var button = document.getElementById(id);
+    var likes = button.value;
 
+    var updated_likes = Number(likes) + 1;
+
+    firebase.database().ref(room_name).child(id).update({
+        like: updated_likes
+    });
 }
 
+// 🚪 LOGOUT
 function logout() {
-localStorage.removeItem("user_name");
-localStorage.removeItem("room_name");
-window.location.replace("index.html");
+
+    localStorage.removeItem("user_name");
+    localStorage.removeItem("room_name");
+
+    window.location = "login.html";
 }
